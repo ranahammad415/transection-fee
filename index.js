@@ -1,28 +1,26 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 
-
-
 const app = express();
-app.set("port", process.env.PORT || 8000);
+app.set("port", process.env.PORT || 5000);
 
-app.use(express.json());
+const browserP = puppeteer.launch({
+  args: ["--no-sandbox", "--disable-setuid-sandbox"]
+});
 
-app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `)
-})
+app.get("/", (req, res) => {
+  // FIXME move to a worker task; see https://devcenter.heroku.com/articles/node-redis-workers
+  let page;
+  (async () => {
+    page = await (await browserP).newPage();
+    await page.setContent(`<p>web running at ${Date()}</p>`);
+    res.send(await page.content());
+  })()
+    .catch(err => res.sendStatus(500))
+    .finally(() => page.close())
+  ;
+});
 
-app.get('/', async (req, res) => {
- 
-   res.send('Working....')
-})
-
-app.get('/about', (req, res) => {
-  res.send('This is my about route..... ')
-})
-
-
-
-
-// Export the Express API
-module.exports = app
+app.listen(app.get("port"), () => 
+  console.log("app running on port", app.get("port"))
+);
