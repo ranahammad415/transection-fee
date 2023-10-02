@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "a really cool app",
   "engines": {
-    "node": "12.11.1"
+    "node": "16.20.2"
     },
   "scripts": {
     "start": "node index.js"
