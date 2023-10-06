@@ -6,13 +6,14 @@
     "node": "18.18.0"
     },
   "scripts": {
-    "start": "node index.js",
-    "heroku-postbuild": "mkdir ./.cache && mv /app/.cache/puppeteer ./.cache"
+    "build": "node node_modules/puppeteer/install.js && mkdir -p ./.cache && mv /app/.cache/puppeteer ./.cache",
+    "start": "node index.js"
+   
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "puppeteer": "^21.3.6"
+    "puppeteer": "^19.0.0"
   }
 }
