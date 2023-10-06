@@ -4,9 +4,7 @@ const puppeteer = require("puppeteer");
 const app = express();
 app.set("port", process.env.PORT || 5000);
 
-const browserP = puppeteer.launch({
-  args: ["--no-sandbox", "--disable-setuid-sandbox"]
-});
+const browserP = puppeteer.launch({headless: true});
 
 app.get("/", (req, res) => {
   // FIXME move to a worker task; see https://devcenter.heroku.com/articles/node-redis-workers
