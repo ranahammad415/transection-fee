@@ -7,7 +7,7 @@
     },
   "scripts": {
     "build": "node node_modules/puppeteer/install.js && mkdir -p ./.cache && mv /app/.cache/puppeteer ./.cache",
-    "start": "node index.js"
+    "start": "node index.js" 
    
   },
   "author": "",
